@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class UI_Linked : UI_Base
 {
-   
+    protected override void Init()
+    {
+        
+    }
 }

@@ -1,22 +1,17 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Base : MonoBehaviour
+public abstract class UI_Base : MonoBehaviour
 {
-    // To Do
-    // 사용할 컴포넌트들을 캐싱해둘 자료구조
-    // 컴포넌트 Bind
-    // 컴포넌트 Get
-
     protected Dictionary<Type, UnityEngine.Object[]> _dict = new Dictionary<Type, UnityEngine.Object[]>();
+    protected abstract void Init();
 
-    enum Buttons
+    private void Awake()
     {
-        Popup,
-        Linked,
+        Init();
     }
 
     protected void Bind<T>(Type type) where T : UnityEngine.Object
@@ -28,23 +23,16 @@ public class UI_Base : MonoBehaviour
 
         for (int i = 0; i < names.Length; i++)
         {
-            objs[i] = FindChild<T>(names[i]);
+            objs[i] = Util.FindChild<T>(gameObject, names[i]);
 
             if (objs[i] == null)
                 Debug.Log($"바인드에 실패했습니다. : {names[i]}");
         }
-    }
+    }    
 
-    private T FindChild<T>(string name) where T : UnityEngine.Object
-    {
-        foreach (T child in gameObject.GetComponentsInChildren<T>())
-        {
-            if (child.name == name)
-                return child;
-        }
-
-        return null;
-    }
+    protected void BindButton(Type type) => Bind<Button>(type);
+    protected void BindImage(Type type) => Bind<Image>(type);
+    protected void BindTMP(Type type) => Bind<TextMeshProUGUI>(type);
 
     protected T Get<T>(int index) where T : UnityEngine.Object
     {
@@ -59,9 +47,7 @@ public class UI_Base : MonoBehaviour
         return objs[index] as T;
     }
 
-    private void Start()
-    {
-        Bind<Button>(typeof(Buttons));
-        Button button = Get<Button>((int)Buttons.Linked);
-    }
+    protected Button GetButton(int index) => Get<Button>(index);
+    protected Image GetImage(int index) => Get<Image>(index);
+    protected TextMeshProUGUI GetTMP(int index) => Get<TextMeshProUGUI>(index);
 }
