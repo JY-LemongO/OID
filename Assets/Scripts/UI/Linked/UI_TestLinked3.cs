@@ -6,6 +6,6 @@ public class UI_TestLinked3 : UI_Linked
 {
     public void Undo()
     {
-        UIManager.Instance.UndoLinkedUI();
+        Managers.UI.UndoLinkedUI();
     }
 }

@@ -38,27 +38,14 @@ public class Pool
     }
 }
 
-public class PoolManager : MonoBehaviour
+public class PoolManager
 {
-    public static PoolManager Instance;
-
     private Dictionary<string, Pool> _pools = new Dictionary<string, Pool>();
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
-    }
     
-    public GameObject GetFromPool(GameObject origin)
+    public GameObject GetFromPool(string key, GameObject origin)
     {
-        if (!_pools.ContainsKey(origin.name))
-            CreatePool(origin);        
+        if (!_pools.ContainsKey(key))
+            CreatePool(key, origin);        
 
         return _pools[origin.name].Pop();
     }
@@ -68,12 +55,12 @@ public class PoolManager : MonoBehaviour
         _pools[go.name].Push(go);
     }
 
-    public void CreatePool(GameObject origin)
+    public void CreatePool(string key, GameObject origin)
     {
         Pool pool = new Pool();
         pool.origin = origin;
         pool.Init();
 
-        _pools.Add(origin.name, pool);
+        _pools.Add(key, pool);
     }
 }

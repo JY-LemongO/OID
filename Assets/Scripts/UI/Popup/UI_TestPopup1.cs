@@ -6,6 +6,6 @@ public class UI_TestPopup1 : UI_Popup
 {
     public void Close()
     {
-        UIManager.Instance.ClosePopupUI(this);
+        Managers.UI.ClosePopupUI(this);
     }
 }

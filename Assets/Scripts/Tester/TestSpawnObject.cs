@@ -27,6 +27,6 @@ public class TestSpawnObject : MonoBehaviour
         //Destroy(gameObject);
 
         //풀링
-        PoolManager.Instance.ReturnToPool(gameObject);
+        Managers.Pool.ReturnToPool(gameObject);
     }
 }

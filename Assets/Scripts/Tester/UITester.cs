@@ -11,14 +11,14 @@ public class UITester : MonoBehaviour
     public void Popup()
     {
         if (index % 2 == 0)
-            UIManager.Instance.ShowPopupUI<UI_TestPopup1>();
+            Managers.UI.ShowPopupUI<UI_TestPopup1>();
         else
-            UIManager.Instance.ShowPopupUI<UI_TestPopup2>();
+            Managers.UI.ShowPopupUI<UI_TestPopup2>();
         index++;
     }
 
     public void Linked()
     {
-        UIManager.Instance.ShowLinkedUI<UI_TestLinked1>();
+        Managers.UI.ShowLinkedUI<UI_TestLinked1>();
     }
 }

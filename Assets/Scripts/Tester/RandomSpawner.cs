@@ -8,13 +8,17 @@ public class RandomSpawner : MonoBehaviour
 
     [Header("Settings")]
     public float spawnDelay;    
-    public float spawnOffset;
-    public int countPerSpawn;
+    public float spawnOffset;    
 
     private WaitForSeconds spawnTime;
 
     private void Start()
     {
+        //Managers.RM.LoadAllAsync<GameObject>("Test", (key, count, totalCount) =>
+        //{
+        //    Debug.Log($"{key} {count}/{totalCount}");
+        //});
+
         spawnTime = new WaitForSeconds(spawnDelay);
         StartCoroutine(Co_SpawnEndless());
     }    
@@ -31,16 +35,9 @@ public class RandomSpawner : MonoBehaviour
 
     private void SpawnClone()
     {
-        for (int i = 0; i < countPerSpawn; i++)
-        {
-            // 생성
-            //GameObject clone = Instantiate(testPrefab);
+        //GameObject clone = Managers.Pool.GetFromPool(testPrefab);
+        //clone.SetActive(true);
 
-            // 풀링
-            GameObject clone = PoolManager.Instance.GetFromPool(testPrefab);
-            clone.SetActive(true);
-
-            clone.transform.position = Random.insideUnitSphere * spawnOffset;
-        }
+        //clone.transform.position = Random.insideUnitSphere * spawnOffset;
     }
 }
